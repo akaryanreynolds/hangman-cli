@@ -1,0 +1,27 @@
+{
+  "name": "hangman-cli",
+  "version": "1.0.0",
+  "description": "Hangman CLI Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akaryanreynolds/hangman-cli.git"
+  },
+  "keywords": [
+    "Hang",
+    "man",
+    "game"
+  ],
+  "author": "Ryan Reynolds",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akaryanreynolds/hangman-cli/issues"
+  },
+  "homepage": "https://github.com/akaryanreynolds/hangman-cli#readme",
+  "dependencies": {
+    "inquirer": "^4.0.1"
+  }
+}
