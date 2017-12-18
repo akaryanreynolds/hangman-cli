@@ -21,7 +21,7 @@ for (var i = 0; i < game_word.lettersLength; i++) {
 var lettersArray = game_word.word.split("");
 // console.log(lettersArray);
 
-console.log("\n" + blanksArray.join(" ") + "\n");
+console.log("\nThe word is:"+"\n" + blanksArray.join(" ") + "\n");
 
 var count = 0;
 
@@ -52,7 +52,7 @@ var playGame = function () {
         guessedLettersArray.push(user.letter);
       }
 
-      console.log(guessedLettersArray);
+      console.log("Here are the incorrect letters you've gussed " + guessedLettersArray);
 
       if (blanksArray.join() === lettersArray.join()) {
         console.log("You win");
