@@ -4,29 +4,20 @@ var RandomWords = require("./word.js");
 console.log("\nSo You Wanna Play Hangman Huh?!" + "\nWell, try to guess this motorcycle brand!");
 
 var game_word = new RandomWords();
-
-//game_word.word()
-// console.log(game_word)
-// console.log(game_word.word)
-// console.log(game_word.lettersLength);
-
 var blanksArray = [];
 var guessedLettersArray = [];
+var lettersArray = game_word.word.split("");
+
 
 for (var i = 0; i < game_word.lettersLength; i++) {
   blanksArray.push("_");
-
 }
 
-var lettersArray = game_word.word.split("");
-// console.log(lettersArray);
-
-console.log("\nThe word is:"+"\n" + blanksArray.join(" ") + "\n");
+// This makes the blank spaces in the game.
+console.log("\nThe word is:" + "\n" + blanksArray.join(" ") + "\n");
 
 var count = 0;
-
 var playGame = function () {
-
   if (count < 10) {
 
     inquirer.prompt([
@@ -36,45 +27,39 @@ var playGame = function () {
         message: "Guess a letter???"
       }
     ]).then(function (user) {
-      // console.log(lettersArray);
-      
       console.log("");
-      console.log("==============================================");
-      console.log("You've guessed " + (count + 1) + " times.")
-      
+      console.log("====================================================================");
+      console.log("\nYou've guessed " + (count + 1) + " of 10 tries.")
+
       for (var i = 0; i < lettersArray.length; i++) {
-        if (user.letter === lettersArray[i]) {
+        if (user.letter === guessedLettersArray[i] || user.letter === blanksArray[i]) {
+          console.log("\n#####" + "\n!!!!!You have already entered " + user.letter + " please choose another letter!!!!\n" + "#####\n")
+        } else if (user.letter === lettersArray[i]) {
           blanksArray[i] = user.letter
         }
-      }
+      };
+      count++;
 
       if (lettersArray.indexOf(user.letter) === -1) {
         guessedLettersArray.push(user.letter);
-      }
+      };
 
-      console.log("Here are the incorrect letters you've gussed " + guessedLettersArray);
+      console.log("Here are the incorrect letters you've guessed " + guessedLettersArray);
 
       if (blanksArray.join() === lettersArray.join()) {
-        console.log("You win");
+        console.log("\n" + "\n************************************" + "\nYou win you guessed " + game_word.word + "!!!!" + "\n************************************" + "\n");
         return;
       }
       console.log(blanksArray.join(" "));
-
-      // console.log("");
-      // console.log(user.letter);
-      // console.log("");
-      console.log("==============================================");
+      console.log("\n====================================================================");
       console.log("");
-      count++;
-
       playGame();
     });
 
+  } else {
+    console.log("GAME OVER" + "\nNo more guesses left the word was " + game_word.word + "\n")
   }
-  else {
-    console.log("GAME OVER" +"\nNo more guesses left the word was " + game_word.word+"\n")
-  }
-
 };
 
+// This starts the game
 playGame();
