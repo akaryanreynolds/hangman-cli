@@ -36,9 +36,9 @@ var playGame = function () {
           console.log("\n#####" + "\n!!!!!You have already entered " + user.letter + " please choose another letter!!!!\n" + "#####\n")
         } else if (user.letter === lettersArray[i]) {
           blanksArray[i] = user.letter
-          count++;
         }
       };
+      count++;
 
       if (lettersArray.indexOf(user.letter) === -1) {
         guessedLettersArray.push(user.letter);
