@@ -1,13 +1,16 @@
 var inquirer = require("inquirer");
 var RandomWords = require("./word.js");
 
-console.log("\nSo You Wanna Play Hangman Huh?!" + "\nWell, try to guess this motorcycle brand!");
-
 var game_word = new RandomWords();
+
+var correctFlag = false;
+var incorrectFlag = false;
 var blanksArray = [];
 var guessedLettersArray = [];
 var lettersArray = game_word.word.split("");
 
+// Welcome message
+console.log("\nSo You Wanna Play Hangman Huh?!" + "\nWell, try to guess this motorcycle brand!");
 
 for (var i = 0; i < game_word.lettersLength; i++) {
   blanksArray.push("_");
@@ -15,6 +18,7 @@ for (var i = 0; i < game_word.lettersLength; i++) {
 
 // This makes the blank spaces in the game.
 console.log("\nThe word is:" + "\n" + blanksArray.join(" ") + "\n");
+
 
 var count = 0;
 var playGame = function () {
@@ -31,18 +35,47 @@ var playGame = function () {
       console.log("====================================================================");
       console.log("\nYou've guessed " + (count + 1) + " of 10 tries.")
 
+      if (lettersArray.indexOf(user.letter) === -1) {
+        guessedLettersArray.push(user.letter);
+      };
+
+      // for (var i = 0; i < lettersArray.length; i++) {
+      //   if (user.letter === lettersArray[i]) {
+      //     blanksArray[i] = user.letter
+      //   }
+      // };
+
+      for (var i = 0; i < guessedLettersArray.length; i++) {
+        if ((guessedLettersArray.length > 1) && (incorrectFlag === false)) {
+          // console.log(guessedLettersArray.length)
+          if (user.letter === guessedLettersArray[i]) {
+            // console.log("debugging")
+            incorrectFlag = true;
+            console.log("\n#####" + "\n!!!!!You have already entered " + user.letter + " please choose another letter!!!!\n" + "#####\n")
+          }
+        }
+      }
+      incorrectFlag = false;
+
+      for (var i = 0; i < blanksArray.length; i++) {
+
+        if ((blanksArray.length > 1) && (correctFlag === false)) {
+          // console.log(blanksArray.length)
+          if (user.letter === blanksArray[i]) {
+            // console.log("debugging")
+            correctFlag = true;
+            console.log("\n#####" + "\n!!!!!You have already entered " + user.letter + " please choose another letter!!!!\n" + "#####\n")
+          }
+        }
+      }
+      correctFlag = false;
+
       for (var i = 0; i < lettersArray.length; i++) {
-        if (user.letter === guessedLettersArray[i] || user.letter === blanksArray[i]) {
-          console.log("\n#####" + "\n!!!!!You have already entered " + user.letter + " please choose another letter!!!!\n" + "#####\n")
-        } else if (user.letter === lettersArray[i]) {
+        if (user.letter === lettersArray[i]) {
           blanksArray[i] = user.letter
         }
       };
       count++;
-
-      if (lettersArray.indexOf(user.letter) === -1) {
-        guessedLettersArray.push(user.letter);
-      };
 
       console.log("Here are the incorrect letters you've guessed " + guessedLettersArray);
 
